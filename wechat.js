@@ -143,13 +143,13 @@ Wechat.prototype = {
 	},
 
 	/* @return promise of weixin jssdk config object */
-	generateJsSdkConfig: function(){
+	generateJsSdkConfig: function(pageUrl){
 		var wx = this;
 		var dfd = Q.defer();
 		this.getJsSdkTicket().then(function(ticketJson){
 			var jsapi_ticket = ticketJson.ticket;
 			var timestamp = 1024;
-			var url = 'http://qz23087.ngrok.natapp.cn/index.html';
+			var url = pageUrl;
 			var nonce = 'aa';
 
 			var s = `jsapi_ticket=${jsapi_ticket}&noncestr=${nonce}&timestamp=${timestamp}&url=${url}`;
@@ -166,7 +166,10 @@ Wechat.prototype = {
 					'onMenuShareTimeline',
 					'onMenuShareAppMessage',
 					'chooseImage',
-					'previewImage'
+					'previewImage',
+					'uploadImage',
+					'downloadImage',
+					'scanQRCode'
 				]
 			}
 

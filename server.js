@@ -36,22 +36,11 @@ function logResponseBody(req, res, next) {
   next();
 }
 
-function logRequest(req){
-	var chunk = '';
-	req.on('data', function(data){
-		console.log('on req data ' + data)
-		chunk += data;
-	})
-	req.on('end', function(){
-		console.log('on req end')
-		console.log(chunk)
-	})
-}
-
 var app = express();
 app.use(express.static(__dirname+'/public'));
 //app.use(logResponseBody); //loging response body data
 app.use(xmlparser());
+app.use(bodyParser.json());
 
 app.get('/post', function(req, res){
 	console.log('receive get request');
@@ -59,7 +48,7 @@ app.get('/post', function(req, res){
 })
 app.post('/post', function(req, res){
 	console.log('receive post request')
-	
+	console.log(req.body.name)
 	res.end('done post')
 });
 
@@ -75,14 +64,15 @@ app.get('/weixin/ticket', function(req, res){
 	})
 });
 
-app.get('/weixin/sdkconfig', function(req, res){
-	wx.generateJsSdkConfig().then(function(config){
+app.post('/weixin/sdkconfig', function(req, res){
+	var pageUrl = req.body.pageUrl;
+	console.log(pageUrl);
+	wx.generateJsSdkConfig(pageUrl).then(function(config){
 		res.json(config)
 	})
 });
 app.get('/weixin', function(req, res){
 	console.log('receive wx GET request...');
-	logRequest(req);
 	var signature = req.query.signature;
 	var timestamp = req.query.timestamp;
 	var echostr = req.query.echostr;
@@ -90,36 +80,54 @@ app.get('/weixin', function(req, res){
 	console.log('receive from wx:' + req.query);
 	res.send(echostr);
 });
+
+
 app.post('/weixin', function(req, res){
 	console.log('receive wx POST request...');
 	console.log(req.rawBody);
-
-
-	var responseXML = "";
-	// var message = req.body.xml || {};
-	// var fromUserName = message.fromusername[0];
-	// var toUserName = message.tousername[0];
-	// var content = message.content[0];
-	// if (content == '1'){
-	// 	responseXML =  "<xml>" +
-	// 		 "<ToUserName><![CDATA["+fromUserName+"]]></ToUserName>"+
-	// 		 "<FromUserName><![CDATA["+toUserName+"]]></FromUserName>"+
-	// 		 "<CreateTime>1456507336080</CreateTime>"+
-	// 		 "<MsgType><![CDATA[text]]></MsgType>"+
-	// 		 "<Content><![CDATA[this is a test, 1]]></Content>"+
-	// 		 "<MsgId>2</MsgId>"+
-	// 		 "</xml>";
-	// }else if (content == "2"){
-	// 	responseXML =  "<xml>" +
-	// 		 "<ToUserName><![CDATA["+fromUserName+"]]></ToUserName>"+
-	// 		 "<FromUserName><![CDATA["+toUserName+"]]></FromUserName>"+
-	// 		 "<CreateTime>1456507336080</CreateTime>"+
-	// 		 "<MsgType><![CDATA[text]]></MsgType>"+
-	// 		 "<Content><![CDATA[Meng da Meng haha, 2]]></Content>"+
-	// 		 "<MsgId>3</MsgId>"+
-	// 		 "</xml>";
-	// }
+	var message = req.body.xml || {};
+	var fromUserName = message.fromusername[0];
+	var toUserName = message.tousername[0];
 	
+	var responseXML = "";
+	switch (message.msgtype[0]) {
+		case 'text': {
+			var content = message.content[0];
+			responseXML =  "<xml>" +
+			 "<ToUserName><![CDATA["+fromUserName+"]]></ToUserName>"+
+			 "<FromUserName><![CDATA["+toUserName+"]]></FromUserName>"+
+			 "<CreateTime>1456507336080</CreateTime>"+
+			 "<MsgType><![CDATA[text]]></MsgType>"+
+			 "<Content><![CDATA[你输入了文本:"+content+", 要不你发个图片我看看？]]></Content>"+
+			 "<MsgId>2</MsgId>"+
+			 "</xml>";
+			break;
+		}
+		case 'image': {
+			responseXML =  "<xml>" +
+			 "<ToUserName><![CDATA["+fromUserName+"]]></ToUserName>"+
+			 "<FromUserName><![CDATA["+toUserName+"]]></FromUserName>"+
+			 "<CreateTime>1456507336080</CreateTime>"+
+			 "<MsgType><![CDATA[text]]></MsgType>"+
+			 "<Content><![CDATA[你的图片不错额，要不你和我说句话？长按语音按钮。。。]]></Content>"+
+			 "<MsgId>3</MsgId>"+
+			 "</xml>";
+			 break;
+		}
+		case 'voice': {
+			responseXML =  "<xml>" +
+			 "<ToUserName><![CDATA["+fromUserName+"]]></ToUserName>"+
+			 "<FromUserName><![CDATA["+toUserName+"]]></FromUserName>"+
+			 "<CreateTime>1456507336080</CreateTime>"+
+			 "<MsgType><![CDATA[text]]></MsgType>"+
+			 "<Content><![CDATA[我听不懂你在说什么。。。等爸爸（sam）教会我，我再回复你吧]]></Content>"+
+			 "<MsgId>4</MsgId>"+
+			 "</xml>";
+			 break;
+		}
+
+	}
+
 	res.send(responseXML)
 })
 app.listen(8080);
