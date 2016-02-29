@@ -1,0 +1,26 @@
+{
+  "name": "weixin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "express-xml-bodyparser": "^0.3.0",
+    "json-print": "^0.0.5",
+    "jquery": "^2.2.1",
+    "q": "^1.4.1",
+    "xml2js": "^0.4.16"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.oschina.net/qz23087/weixin.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type='text/javascript' src='http://cdn.staticfile.org/jquery/2.1.1/jquery.min.js'></script>
+	<script type="text/javascript" src="http://cdn.staticfile.org/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script>
+		$(function(){
+			$('#postReq').click(function(){
+				$.ajax({
+					url: '/post',
+					cache:false,
+					processData: false,
+					method: 'post',
+					contentType: 'text/xml',
+					data: '<root>sam</root>'
+				})
+			})
+			$('#getReq').click(function(){
+				$.ajax({
+					url: '/post',
+					cache:false,
+					processData: false,
+					method: 'get',
+					contentType: 'text/xml',
+					data: '<root>sam</root>'
+				})
+			})
+	$('#qr').qrcode({width:128,height:128,text:'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx214ff7e919542dbb&redirect_uri=http%3A%2F%2Fqz23087.ngrok.natapp.cn%2Findex.html&response_type=code&scope=snsapi_base&state=123#wechat_redirect'});
+			// $.ajax({
+			// 	url: '/weixin/sdkconfig',
+			// 	method: 'GET',
+			// 	dataType: 'json'
+			// }).then(function(sdkConfig){
+			// 	console.log(sdkConfig)
+			// 	wx.config(sdkConfig);
+			// 	wx.ready(function(){
+			// 		wx.previewImage({
+			// 		    current: '', // 当前显示图片的http链接
+			// 		    urls: ['http://pic1a.nipic.com/2008-11-26/200811268173650_2.jpg','http://pic27.nipic.com/20130126/9252150_172332132344_2.jpg','http://pica.nipic.com/2007-12-16/20071216105113620_2.jpg'] // 需要预览的图片http链接列表
+			// 		});
+			// 	});
+			// 	wx.error(function(res){
+			// 		console.log('install wx sdk error:' + res)
+			// 	})
+			// })
+		})
+
+
+		function init(){
+			wx.config({ debug: true,
+				  appId: 'wx214ff7e919542dbb',
+				  timestamp: 1024,
+				  nonceStr: 'aa',
+				  signature: '6bfda3ca0b4842f2df59c1bff05ab675f70602c6',
+				  jsApiList:[ 'checkJsApi',
+				     'onMenuShareTimeline',
+				     'onMenuShareAppMessage',
+				     'chooseImage' ] });
+
+			wx.ready(function(){
+
+				wx.checkJsApi({
+					jsApiList:['checkJsApi',
+							     'onMenuShareTimeline',
+							     'onMenuShareAppMessage',
+							     'chooseImage'],
+					success: function(res){
+						alert(JSON.stringify(res))
+					}
+				});
+
+				document.querySelector('#chooseImage').onclick = function(){
+					wx.chooseImage({
+					    count: 1, // 默认9
+					    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+					    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+					    success: function (res) {
+					        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+					        document.querySelector('#preview').src=localIds[0]
+					    }
+					});
+				}
+
+				document.querySelector('#share').onclick = function(){
+					wx.onMenuShareTimeline({
+					    title: 'ffff', // 分享标题
+					    link: 'http://www.baidu.com', // 分享链接
+					    imgUrl: '', // 分享图标
+					    success: function () { 
+					        // 用户确认分享后执行的回调函数
+					        alert('share success')
+					    },
+					    cancel: function () { 
+					        // 用户取消分享后执行的回调函数
+					        alert('share cancel')
+					    },
+					    fail: function(e){
+					    	alert(e)
+					    },
+					    complete: function(){
+					    	alert(' share complete')
+					    }
+					});
+				}
+
+				document.querySelector('#shareMessage').onclick = function(){
+					wx.onMenuShareAppMessage({
+					    title: 'sdsdfd', // 分享标题
+					    desc: 'asdfadf', // 分享描述
+					    link: 'http://www.baidu.com', // 分享链接
+					    imgUrl: '', // 分享图标
+					    type: '', // 分享类型,music、video或link，不填默认为link
+					    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+					    success: function () { 
+					        // 用户确认分享后执行的回调函数
+					        alert('share message success')
+					    },
+					    cancel: function () { 
+					        // 用户取消分享后执行的回调函数
+					        alert('share message cancle')
+					    },
+					    fail: function(e){
+					    	alert(e)
+					    },
+					    complete: function(){
+					    	alert(' share complete')
+					    }
+					});
+				}
+			});
+
+			document.querySelector('#previewImage').onclick = function(){
+				wx.previewImage({
+				    current: '', // 当前显示图片的http链接
+				    urls: ['http://pic1a.nipic.com/2008-11-26/200811268173650_2.jpg','http://pic27.nipic.com/20130126/9252150_172332132344_2.jpg','http://pica.nipic.com/2007-12-16/20071216105113620_2.jpg'] // 需要预览的图片http链接列表
+				});
+			}
+
+
+			wx.error(function(res){
+				console.log('wx api error:' + res)
+			})
+		}
+
+	</script>
+</head>
+<body>
+	hello app 2
+	<button id="checkJsApi">Check JS API</button>
+	<button id="chooseImage">Call WX Choose Image</button>
+	<button id="share">Share Friends</button>
+	<button id="shareMessage">Share to a friend</button>
+	<button id="previewImage">Call WX previewImage</button>
+	<img id="preview"/>
+
+	<div id="qr"></div>
+	<button id="getReq">send get</button>
+	<button id="postReq">send post</button>
+	
+
+	
+</body>
+</html>
