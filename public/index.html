@@ -31,6 +31,11 @@
 			width:40%;
 			height: 40%;
 		}
+
+		#sam-gongzhonghao{
+			width: 128px;
+			height: 128px;
+		}
 	</style>
 	<script>
 		$(function(){
@@ -143,11 +148,24 @@
 	    </div>
 	</nav>
 	<div class="main container">
-	    <div class="starter-template">
-	        <h1>微信js-sdk测试</h1>
-	        <p>扫一扫 关注Sam的测试公众号</p>
-	        <div id="qr"></div>
-	    </div>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="starter-template">
+				    <h1>微信js-sdk测试</h1>
+				    <p>用微信扫我进入sam的app</p>
+				    <div id="qr"></div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="starter-template">
+				    <h1>微信机器人测试</h1>
+				    <p>用微信扫我关注sam的公众号</p>
+				    <img id="sam-gongzhonghao" src="sam.jpg" alt="sam的公众号">
+				</div>
+			</div>
+		</div>
+	    
+	    
 	</div>
 	<div class="container">
 		<div class="button-group">
