@@ -1,3 +1,3 @@
 # weixin
 
-wx-js-sdk api
+wx-js-sdk api, v1.
