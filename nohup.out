@@ -1,0 +1,12 @@
+express start at 3000
+http://test.traderwork.com/
+read from file: `${path}`
+write to file: /Users/zhangqingfeng/projects/weixin/cache/token.json "{\"access_token\":\"Ec2vIGzdFghCBXIDlXlqJ0t0zwY8uvZ6NhE6GspseYjMsCOa-sAw2uwz0IHzMCdyuvtTAnpJKFaJPaHzob93VlxvQ_umVZ1F37NMdeNt1W8nmP2zJx0gPBNN5h-RNkorQRDfACATUG\",\"expires_in\":7200}"
+read from file: `${path}`
+write to file: /Users/zhangqingfeng/projects/weixin/cache/expire.json {"token_create_time":1486479960832,"ticket_create_time":1486454266213}
+Token: Ec2vIGzdFghCBXIDlXlqJ0t0zwY8uvZ6NhE6GspseYjMsCOa-sAw2uwz0IHzMCdyuvtTAnpJKFaJPaHzob93VlxvQ_umVZ1F37NMdeNt1W8nmP2zJx0gPBNN5h-RNkorQRDfACATUG
+read from file: `${path}`
+write to file: /Users/zhangqingfeng/projects/weixin/cache/jsticket.json "{\"errcode\":0,\"errmsg\":\"ok\",\"ticket\":\"kgt8ON7yVITDhtdwci0qeRnBj_Ydld8cPO4dLQ3K23PFRLz7JR10kFui_hhjG2W917LxdSGQQOZZN279XSA2xw\",\"expires_in\":7200}"
+read from file: `${path}`
+write to file: /Users/zhangqingfeng/projects/weixin/cache/expire.json {"token_create_time":1486479960832,"ticket_create_time":1486479960942}
+receive get request

@@ -1,4 +1,4 @@
-var port = 80;
+var port = 3000;
 var host = 'localhost';
 var http = require('http');
 var url = require('url');
