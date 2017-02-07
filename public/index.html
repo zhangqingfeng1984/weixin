@@ -42,7 +42,7 @@
 			var pageUrl = window.location.toString();
 			var isPageInWx = /vx/.test(window.location.hash);
 			isPageInWx && ($('body').addClass('open-in-wx'));
-			$('#qr').qrcode({width:128,height:128,text:pageUrl});
+			$('#qr').qrcode({width:128,height:128,text:'http://test.traderwork.com/index.html?a=1&b=2#vx'});
 			$.ajax({
 				url: '/weixin/sdkconfig',
 				method: 'post',

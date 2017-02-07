@@ -112,7 +112,7 @@ Wechat.prototype = {
 		var dfd = Q.defer();
 		var url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${appsecret}&code=${code}&grant_type=authorization_code`;
 		var res = request('GET', url);
-		var content = res.getBody('utf-8');
+		var content = res.getBody('utf8');
 		console.log('getWebOauthAccessToken===>'+content);
 		return JSON.parse(content);
 		// https.get(url, function(res){
@@ -138,7 +138,7 @@ Wechat.prototype = {
 		var dfd = Q.defer();
 		var url = `https://api.weixin.qq.com/sns/userinfo?access_token=${webAccessToken}&openid=${openid}&lang=${lang}`;
 		var res = request('GET', url);
-		var content = res.getBody('utf-8');
+		var content = res.getBody('utf8');
 		console.log('getUserInfo===>'+content);
 		return JSON.parse(content);
 		// https.get(url, function(res){
