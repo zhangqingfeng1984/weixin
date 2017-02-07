@@ -83,6 +83,7 @@ app.post('/weixin/sdkconfig', function(req, res){
 		res.json(config)
 	})
 });
+
 app.get('/weixin', function(req, res){
 	console.log('receive wx GET request...');
 	var signature = req.query.signature;
@@ -92,7 +93,6 @@ app.get('/weixin', function(req, res){
 	console.log('receive from wx:' + JSON.stringify(req.query));
 	res.send(echostr);
 });
-
 
 app.post('/weixin', function(req, res){
 	console.log('receive wx POST request...');

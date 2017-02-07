@@ -7,7 +7,7 @@
                     "type": "view", 
                     "name": "TraderWork", 
                     "key": "TraderWork", 
-                    "url": "http://traderaccount.oss-cn-hangzhou.aliyuncs.com/m/index.html"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx214ff7e919542dbb&redirect_uri=http://test.traderwork.com/oauth&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
                 }, 
                 {
                     "type": "view", 
@@ -16,10 +16,10 @@
                     "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx214ff7e919542dbb&redirect_uri=http://test.traderwork.com/oauth&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
                 }, 
                 {
-                    "type": "click", 
+                    "type": "view", 
                     "name": "FeederWork", 
                     "key": "FeederWork", 
-                    "url": "http://www.youku.com"
+                    "url": "http://www.sina.com"
                 }
             ]
         }, 
