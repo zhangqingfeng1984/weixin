@@ -1,14 +1,22 @@
-var port = 8080;
+var port = 80;
 var host = 'localhost';
 var http = require('http');
 var url = require('url');
 var querystring = require('querystring');
 var https = require('https');
-
+var request = require('sync-request');
 var express = require('express');
 var bodyParser = require('body-parser');
 var xmlparser = require('express-xml-bodyparser');
 var wx = require('./wechat');
+
+// var res = request('GET', 'https://www.baidu.com', {
+//   'headers': {
+//     'user-agent': 'example-user-agent'
+//   }
+// });
+// console.log(res.getBody('utf-8'));
+// return;
 
 function logResponseBody(req, res, next) {
   var oldWrite = res.write,
@@ -44,12 +52,32 @@ app.use(bodyParser.json());
 
 app.get('/post', function(req, res){
 	console.log('receive get request');
-	res.end('done get')
+	res.end('done get on local server')
 })
 app.post('/post', function(req, res){
 	console.log('receive post request')
 	console.log(req.body.name)
 	res.end('done post')
+});
+
+app.get('/oauth', function(req, res){
+	var code = req.query.code;
+	if (code){
+		console.log('code:'+req.query.code);
+		var webOauthAccessTokenResult = wx.getWebOauthAccessToken(code);
+		var userInfoResult = wx.getUserInfo(webOauthAccessTokenResult.access_token, webOauthAccessTokenResult.openid);
+		console.log('webOauthAccessTokenResult:'+JSON.stringify(webOauthAccessTokenResult))
+		console.log('userInfoResult:'+JSON.stringify(userInfoResult))
+		console.log('oauth done')
+		res.end(JSON.stringify(userInfoResult));
+		// wx.getWebOauthAccessToken(code).then(function(result){
+		// 	console.log('oauth done: ' + JSON.stringify(result));
+		// 	wx.getUserInfo(result.access_token, result.openid).then(res=>{
+		// 		console.log('userinfo done:' + JSON.stringify(res));
+		// 		res.end(JSON.stringify(Object.assign({}, res)))
+		// 	})
+		// })
+	}
 });
 
 app.get('/weixin/token', function(req, res){
@@ -77,7 +105,7 @@ app.get('/weixin', function(req, res){
 	var timestamp = req.query.timestamp;
 	var echostr = req.query.echostr;
 	var nonce = req.query.nonce;
-	console.log('receive from wx:' + req.query);
+	console.log('receive from wx:' + JSON.stringify(req.query));
 	res.send(echostr);
 });
 
@@ -130,5 +158,5 @@ app.post('/weixin', function(req, res){
 
 	res.send(responseXML)
 })
-app.listen(8080);
-console.log('express start at 8080');
+app.listen(port);
+console.log(`express start at ${port}`);

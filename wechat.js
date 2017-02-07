@@ -3,6 +3,7 @@ var https = require('https');
 var fs = require('fs');
 var Q = require('q');
 var crypto = require('crypto');
+var request = require('sync-request');
 
 const TOKEN_CACHE_FILE = path.join(__dirname, '/cache/token.json');
 const JS_SDK_TICKET_CACHE_FILE = path.join(__dirname + '/cache/jsticket.json');
@@ -24,7 +25,6 @@ Wechat.prototype = {
 	defaultOptions: {
 		appId: 'wx214ff7e919542dbb',
 		appsecret: 'f362f5c830573193d5b419ef129ac231', //test wx account
-
 	},
 
 	isTokenExpired: function(){
@@ -102,6 +102,58 @@ Wechat.prototype = {
 			});
 		}
 		return dfd.promise;
+	},
+
+	/* @return promise of token object */
+	getWebOauthAccessToken: function(code){
+		var wx = this;
+		var appId = this.appId;
+		var appsecret = this.appsecret;
+		var dfd = Q.defer();
+		var url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${appsecret}&code=${code}&grant_type=authorization_code`;
+		var res = request('GET', url);
+		var content = res.getBody('utf-8');
+		console.log('getWebOauthAccessToken===>'+content);
+		return JSON.parse(content);
+		// https.get(url, function(res){
+		// 		res.setEncoding('utf8');
+		// 		res.on('data', function(str){
+		// 			var tokenJson = JSON.parse(str);
+		// 			console.log('get web oauth access_token:'+JSON.stringify(tokenJson))
+		// 			dfd.resolve(tokenJson)
+		// 		});
+		// 		res.on('error', function(err){
+		// 			console.log(err);
+		// 			dfd.reject(err)
+		// 		})
+		// 	});
+		// return dfd.promise;
+	},
+
+		/* @return promise of token object */
+	getUserInfo: function(webAccessToken, openid, lang='zh_CN'){
+		var wx = this;
+		var appId = this.appId;
+		var appsecret = this.appsecret;
+		var dfd = Q.defer();
+		var url = `https://api.weixin.qq.com/sns/userinfo?access_token=${webAccessToken}&openid=${openid}&lang=${lang}`;
+		var res = request('GET', url);
+		var content = res.getBody('utf-8');
+		console.log('getUserInfo===>'+content);
+		return JSON.parse(content);
+		// https.get(url, function(res){
+		// 		res.setEncoding('utf8');
+		// 		res.on('data', function(str){
+		// 			var userinfoJSON = JSON.parse(str);
+		// 			console.log('get userinfo:'+JSON.stringify(userinfoJSON))
+		// 			dfd.resolve(userinfoJSON)
+		// 		});
+		// 		res.on('error', function(err){
+		// 			console.log(err);
+		// 			dfd.reject(err)
+		// 		})
+		// 	});
+		// return dfd.promise;
 	},
 
 	/* @return promise of ticket object */

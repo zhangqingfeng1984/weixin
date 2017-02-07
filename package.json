@@ -7,9 +7,10 @@
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "express-xml-bodyparser": "^0.3.0",
-    "json-print": "^0.0.5",
     "jquery": "^2.2.1",
+    "json-print": "^0.0.5",
     "q": "^1.4.1",
+    "sync-request": "^4.0.1",
     "xml2js": "^0.4.16"
   },
   "devDependencies": {},

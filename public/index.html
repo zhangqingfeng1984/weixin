@@ -42,7 +42,7 @@
 			var pageUrl = window.location.toString();
 			var isPageInWx = /vx/.test(window.location.hash);
 			isPageInWx && ($('body').addClass('open-in-wx'));
-			$('#qr').qrcode({width:128,height:128,text:'http://qz23087.ngrok.natapp.cn/index.html?a=1&b=2#vx'});
+			$('#qr').qrcode({width:128,height:128,text:pageUrl});
 			$.ajax({
 				url: '/weixin/sdkconfig',
 				method: 'post',
@@ -160,7 +160,7 @@
 				<div class="starter-template">
 				    <h1>微信机器人测试</h1>
 				    <p>用微信扫我关注sam的公众号</p>
-				    <img id="sam-gongzhonghao" src="sam.jpg" alt="sam的公众号">
+				    <img id="sam-gongzhonghao" src="https://mp.weixin.qq.com/misc/getqrcode?fakeid=3205199302&token=414342745&style=1" alt="sam的公众号">
 				</div>
 			</div>
 		</div>
