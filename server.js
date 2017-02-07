@@ -4,19 +4,10 @@ var http = require('http');
 var url = require('url');
 var querystring = require('querystring');
 var https = require('https');
-var request = require('sync-request');
 var express = require('express');
 var bodyParser = require('body-parser');
 var xmlparser = require('express-xml-bodyparser');
 var wx = require('./wechat');
-
-// var res = request('GET', 'https://www.baidu.com', {
-//   'headers': {
-//     'user-agent': 'example-user-agent'
-//   }
-// });
-// console.log(res.getBody('utf-8'));
-// return;
 
 function logResponseBody(req, res, next) {
   var oldWrite = res.write,
@@ -70,13 +61,6 @@ app.get('/oauth', function(req, res){
 		console.log('userInfoResult:'+JSON.stringify(userInfoResult))
 		console.log('oauth done')
 		res.end(JSON.stringify(userInfoResult));
-		// wx.getWebOauthAccessToken(code).then(function(result){
-		// 	console.log('oauth done: ' + JSON.stringify(result));
-		// 	wx.getUserInfo(result.access_token, result.openid).then(res=>{
-		// 		console.log('userinfo done:' + JSON.stringify(res));
-		// 		res.end(JSON.stringify(Object.assign({}, res)))
-		// 	})
-		// })
 	}
 });
 

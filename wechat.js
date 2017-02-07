@@ -115,19 +115,6 @@ Wechat.prototype = {
 		var content = res.getBody('utf8');
 		console.log('getWebOauthAccessToken===>'+content);
 		return JSON.parse(content);
-		// https.get(url, function(res){
-		// 		res.setEncoding('utf8');
-		// 		res.on('data', function(str){
-		// 			var tokenJson = JSON.parse(str);
-		// 			console.log('get web oauth access_token:'+JSON.stringify(tokenJson))
-		// 			dfd.resolve(tokenJson)
-		// 		});
-		// 		res.on('error', function(err){
-		// 			console.log(err);
-		// 			dfd.reject(err)
-		// 		})
-		// 	});
-		// return dfd.promise;
 	},
 
 		/* @return promise of token object */
@@ -141,19 +128,6 @@ Wechat.prototype = {
 		var content = res.getBody('utf8');
 		console.log('getUserInfo===>'+content);
 		return JSON.parse(content);
-		// https.get(url, function(res){
-		// 		res.setEncoding('utf8');
-		// 		res.on('data', function(str){
-		// 			var userinfoJSON = JSON.parse(str);
-		// 			console.log('get userinfo:'+JSON.stringify(userinfoJSON))
-		// 			dfd.resolve(userinfoJSON)
-		// 		});
-		// 		res.on('error', function(err){
-		// 			console.log(err);
-		// 			dfd.reject(err)
-		// 		})
-		// 	});
-		// return dfd.promise;
 	},
 
 	/* @return promise of ticket object */
