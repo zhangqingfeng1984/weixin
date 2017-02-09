@@ -50,7 +50,20 @@ app.post('/post', function(req, res){
 	console.log(req.body.name)
 	res.end('done post')
 });
-
+app.get('/', function(req, res, next){
+	var code = req.query.code;
+	console.log('webpage oauth, code:'+code)
+	if (code){
+		console.log('code:'+req.query.code);
+		var webOauthAccessTokenResult = wx.getWebOauthAccessToken(code);
+		var userInfoResult = wx.getUserInfo(webOauthAccessTokenResult.access_token, webOauthAccessTokenResult.openid);
+		console.log('webOauthAccessTokenResult:'+JSON.stringify(webOauthAccessTokenResult))
+		console.log('userInfoResult:'+JSON.stringify(userInfoResult))
+		console.log('oauth done')
+		res.end(JSON.stringify(userInfoResult));
+	}
+	next();
+})
 app.get('/oauth', function(req, res){
 	var code = req.query.code;
 	if (code){
