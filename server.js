@@ -50,19 +50,9 @@ app.post('/post', function(req, res){
 	console.log(req.body.name)
 	res.end('done post')
 });
-app.get('/', function(req, res, next){
-	var code = req.query.code;
-	console.log('webpage oauth, code:'+code)
-	if (code){
-		console.log('code:'+req.query.code);
-		var webOauthAccessTokenResult = wx.getWebOauthAccessToken(code);
-		var userInfoResult = wx.getUserInfo(webOauthAccessTokenResult.access_token, webOauthAccessTokenResult.openid);
-		console.log('webOauthAccessTokenResult:'+JSON.stringify(webOauthAccessTokenResult))
-		console.log('userInfoResult:'+JSON.stringify(userInfoResult))
-		console.log('oauth done')
-		res.end(JSON.stringify(userInfoResult));
-	}
-	next();
+
+app.get('/app', function(req, res){
+	res.sendFile('app.html', {root:'./public'})
 })
 
 app.get('/oauth', function(req, res){
@@ -75,7 +65,8 @@ app.get('/oauth', function(req, res){
 		console.log('webOauthAccessTokenResult:'+JSON.stringify(webOauthAccessTokenResult))
 		console.log('userInfoResult:'+JSON.stringify(userInfoResult))
 		console.log('oauth done')
-		res.end(JSON.stringify(userInfoResult));
+		//res.end(JSON.stringify(userInfoResult));
+		res.sendFile('app.html', {root:'./public'})
 	}
 });
 
