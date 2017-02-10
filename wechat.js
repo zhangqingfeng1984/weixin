@@ -10,6 +10,16 @@ const JS_SDK_TICKET_CACHE_FILE = path.join(__dirname + '/cache/jsticket.json');
 const EXPIRE_RECORD_FILE = path.join(__dirname + '/cache/expire.json');
 const EXPIRE_PERIOD = 1000 * 60 * 60 * 2; //2 hour
 
+const APP_CONFIG = {
+	webapp:{
+		appId: 'wx02c2165f2397421e',
+		appsecret: '3f36a27632db82d8f157599906dad343'
+	},
+	wechatapp: {
+		appId: 'wx214ff7e919542dbb',
+		appsecret: 'f362f5c830573193d5b419ef129ac231'
+	}
+}
 /**
 	Wechat util that help to recetrieve and cache the access_token, js_sdk_ticket.
 */
@@ -23,6 +33,11 @@ Wechat.prototype = {
 	constructor: Wechat,
 
 	defaultOptions: {
+		// tradework 公众号
+		// appId: 'wx02c2165f2397421e',
+		// appsecret: '3f36a27632db82d8f157599906dad343', //test wx account
+
+		// sam 接口测试号
 		appId: 'wx214ff7e919542dbb',
 		appsecret: 'f362f5c830573193d5b419ef129ac231', //test wx account
 	},
@@ -69,6 +84,10 @@ Wechat.prototype = {
 		}
 	},
 
+	getConfig: function(app){
+		return APP_CONFIG[app];
+	},
+
 	/* @return promise of token object */
 	getAccessToken: function(){
 		var wx = this;
@@ -105,10 +124,10 @@ Wechat.prototype = {
 	},
 
 	/* @return promise of token object */
-	getWebOauthAccessToken: function(code){
+	getWebOauthAccessToken: function(code, app){
 		var wx = this;
-		var appId = this.appId;
-		var appsecret = this.appsecret;
+		var appId = this.getConfig(app).appId;
+		var appsecret = this.getConfig(app).appsecret;
 		var dfd = Q.defer();
 		var url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${appsecret}&code=${code}&grant_type=authorization_code`;
 		var res = request('GET', url);

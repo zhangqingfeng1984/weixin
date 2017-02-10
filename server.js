@@ -64,11 +64,13 @@ app.get('/', function(req, res, next){
 	}
 	next();
 })
+
 app.get('/oauth', function(req, res){
 	var code = req.query.code;
-	if (code){
-		console.log('code:'+req.query.code);
-		var webOauthAccessTokenResult = wx.getWebOauthAccessToken(code);
+	var app = req.query.state;
+	if (code != null && app != null){
+		console.log('code:'+req.query.code + ', state: '+ app);
+		var webOauthAccessTokenResult = wx.getWebOauthAccessToken(code, app);
 		var userInfoResult = wx.getUserInfo(webOauthAccessTokenResult.access_token, webOauthAccessTokenResult.openid);
 		console.log('webOauthAccessTokenResult:'+JSON.stringify(webOauthAccessTokenResult))
 		console.log('userInfoResult:'+JSON.stringify(userInfoResult))
