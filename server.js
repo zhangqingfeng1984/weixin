@@ -20,14 +20,14 @@ app.use(bodyParser.json());
 app.get('/post', function(req, res){
 	res.render('index', {userinfo: JSON.stringify({name:'zqf'})})
 })
-app.post('/post', function(req, res){
+app.get('/forward', function(req, res){
 	console.log('receive post request')
 	console.log(req.body.name)
-	res.end('done post')
+	res.forward('/app')
 });
 
 app.get('/app', function(req, res){
-	res.sendFile('app.html', {root:'./public'})
+	res.render('index', {userinfo: JSON.stringify(userInfoResult)})
 })
 
 app.get('/oauth', function(req, res){
