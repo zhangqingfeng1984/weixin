@@ -9,41 +9,16 @@ var bodyParser = require('body-parser');
 var xmlparser = require('express-xml-bodyparser');
 var wx = require('./wechat');
 
-function logResponseBody(req, res, next) {
-  var oldWrite = res.write,
-      oldEnd = res.end;
-
-  var chunks = [];
-
-  res.write = function (chunk) {
-  	
-    chunks.push(new Buffer(chunk));
-
-    oldWrite.apply(res, arguments);
-  };
-
-  res.end = function (chunk) {
-    if (chunk)
-      chunks.push(new Buffer(chunk));
-
-    var body = Buffer.concat(chunks).toString('utf8');
-    console.log(req.path, body);
-
-    oldEnd.apply(res, arguments);
-  };
-
-  next();
-}
-
 var app = express();
+app.set('views', './views');
+app.set('view engine', 'pug');
 app.use(express.static(__dirname+'/public'));
-//app.use(logResponseBody); //loging response body data
+app.use(express.static(__dirname+'/views'));
 app.use(xmlparser());
 app.use(bodyParser.json());
 
 app.get('/post', function(req, res){
-	console.log('receive get request');
-	res.end('done get on local server')
+	res.render('index', {userinfo: JSON.stringify({name:'zqf'})})
 })
 app.post('/post', function(req, res){
 	console.log('receive post request')
@@ -66,7 +41,7 @@ app.get('/oauth', function(req, res){
 		console.log('userInfoResult:'+JSON.stringify(userInfoResult))
 		console.log('oauth done')
 		//res.end(JSON.stringify(userInfoResult));
-		res.sendFile('app.html', {root:'./public'})
+		res.render('index', {userinfo: JSON.stringify(userInfoResult)})
 	}
 });
 
