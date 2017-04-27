@@ -31,6 +31,7 @@ app.get('/app', function(req, res){
 })
 
 app.get('/oauth', function(req, res){
+	console.log('/oauth --- ' + req.url)
 	var code = req.query.code;
 	var app = req.query.state;
 	if (code != null && app != null){

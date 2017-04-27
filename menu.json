@@ -7,7 +7,8 @@
                     "type": "view", 
                     "name": "TraderWork", 
                     "key": "TraderWork", 
-                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx214ff7e919542dbb&redirect_uri=http://test.traderwork.com/oauth&response_type=code&scope=snsapi_userinfo&state=wechatapp#wechat_redirect"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx214ff7e919542dbb&redirect_uri=http://trader.tamsc.lwork.com/v1/wechat/callback/menu&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
+
                 }, 
                 {
                     "type": "view", 
