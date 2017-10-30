@@ -1,0 +1,15 @@
+{
+	"button": [
+		{
+			"name": "我的项目",
+			"sub_button": [
+				{
+					"type": "view",
+					"name": "徙木APP",
+					"key": "XimuApp",
+					"url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx72d6e52927329755&redirect_uri=http://www.nodejser.xyz/app&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
+				}
+			]
+		}
+	]
+}

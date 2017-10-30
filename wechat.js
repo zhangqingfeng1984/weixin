@@ -38,8 +38,8 @@ Wechat.prototype = {
 		// appsecret: '3f36a27632db82d8f157599906dad343', //test wx account
 
 		// sam 接口测试号
-		appId: 'wx214ff7e919542dbb',
-		appsecret: 'f362f5c830573193d5b419ef129ac231', //test wx account
+		appId: 'wx72d6e52927329755',
+		appsecret: '3c2858a5221be58839ea46926aa2ed7f', //test wx account
 	},
 
 	isTokenExpired: function(){

@@ -13,4 +13,4 @@ wx-js-sdk api, v1.
 https://open.weixin.qq.com/connect/qrconnect?appid=wx02c2165f2397421e&redirect_uri=http://test.traderwork.com/oauth&response_type=code&scope=snsapi_login&state=webapp#wechat_redirect
 
 微信公众号菜单登录 
-https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx214ff7e919542dbb&redirect_uri=http://test.traderwork.com/oauth&response_type=code&scope=snsapi_userinfo&state=wechatapp#wechat_redirect
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx72d6e52927329755&redirect_uri=http://www.nodejser.xyz/oauth&response_type=code&scope=snsapi_userinfo&state=wechatapp#wechat_redirect
