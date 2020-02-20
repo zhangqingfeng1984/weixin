@@ -7,7 +7,7 @@
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "express-xml-bodyparser": "^0.3.0",
-    "jquery": "^2.2.1",
+    "jquery": "^3.4.1",
     "json-print": "^0.0.5",
     "pug": "^2.0.0-beta11",
     "q": "^1.4.1",
